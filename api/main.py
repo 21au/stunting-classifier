@@ -12,6 +12,15 @@ app = FastAPI(
     description="API untuk prediksi status gizi balita berdasarkan usia, gender, dan tinggi badan, dilengkapi penjelasan SHAP.",
     version="1.0.0"
 )
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # untuk development; nanti dibatasi ke domain Vercel saat production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class PredictionInput(BaseModel):
