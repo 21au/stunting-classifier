@@ -18,15 +18,15 @@ def balance_with_smote(X_train: pd.DataFrame, y_train: pd.Series, random_state: 
 
 if __name__ == "__main__":
     from src.preprocessing import load_and_clean_data, encode_features, split_data
-    
-    df = load_and_clean_data("data/stunting_data.csv")
-    df_encoded, gender_enc, status_enc = encode_features(df)
+
+    df = load_and_clean_data()
+    df_encoded, gender_enc, target_enc = encode_features(df, "stunting_status")
     X_train, X_test, y_train, y_test = split_data(df_encoded)
-    
+
     print("Distribusi kelas SEBELUM SMOTE:")
     print(y_train.value_counts())
-    
+
     X_balanced, y_balanced = balance_with_smote(X_train, y_train)
-    
+
     print("\nDistribusi kelas SETELAH SMOTE:")
     print(pd.Series(y_balanced).value_counts())
