@@ -129,7 +129,7 @@ export default function LandingPage() {
       </div>
 
       {/* ================= 2. TRUST & QUICK STATS ================= */}
-      <section className="bg-white border-y border-slate-200/60 py-10 my-4 shadow-sm">
+     <section className="bg-white border-y border-slate-200/60 py-10 my-4 shadow-sm">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x-0 md:divide-x divide-slate-100">
             <div>
@@ -137,18 +137,22 @@ export default function LandingPage() {
               <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mt-1">Standar Referensi</span>
             </div>
             <div>
-              <span className="block font-mono text-3xl sm:text-4xl font-extrabold text-slate-900">94.2%</span>
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mt-1">Akurasi Prediksi</span>
+              <span className="block font-mono text-3xl sm:text-4xl font-extrabold text-slate-900">88.1%</span>
+              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mt-1">F1-Score Stunting</span>
             </div>
             <div>
-              <span className="block font-mono text-3xl sm:text-4xl font-extrabold text-slate-900">3 Langkah</span>
-              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mt-1">Skrining Instan</span>
+              <span className="block font-mono text-3xl sm:text-4xl font-extrabold text-slate-900">3 Indikator</span>
+              <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mt-1">Skrining Sekaligus</span>
             </div>
             <div>
               <span className="block font-mono text-3xl sm:text-4xl font-extrabold text-emerald-600">100%</span>
               <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mt-1">Gratis & Terbuka</span>
             </div>
           </div>
+          <p className="text-center text-xs text-slate-400 mt-6">
+            Skor performa model: Stunting 88.1% · Underweight 67.3% · Wasting 66.7% (Macro F1-Score).
+            Lihat detail di halaman <a href="/tentang-model" className="underline hover:text-teal-600">Tentang Model</a>.
+          </p>
         </div>
       </section>
 

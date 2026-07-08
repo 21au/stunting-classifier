@@ -1,15 +1,15 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
+import { AuthProvider } from './context/AuthContext'
+import ProtectedRoute from './components/ProtectedRoute'
 import Navbar from './components/Navbar'
 import LandingPage from './pages/LandingPage'
 import ClassifierPage from './pages/ClassifierPage'
 import AboutModelPage from './pages/AboutModelPage'
 import GlossaryPage from './pages/GlossaryPage'
 import GrowthHistoryPage from './pages/GrowthHistoryPage'
-
-// IMPORT DUA HALAMAN BARU DI SINI (Pastikan nanti Bunda buat filenya di folder pages ya!)
-import ImmunizationSchedulePage from './pages/ImmunizationSchedulePage'
-import HeightPredictorPage from './pages/HeightPredictorPage'
+import LoginPage from './pages/LoginPage'
+import SignupPage from './pages/SignupPage'
 
 function PageWrapper({ children }) {
   return (
@@ -31,13 +31,18 @@ function AnimatedRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<PageWrapper><LandingPage /></PageWrapper>} />
         <Route path="/cek" element={<PageWrapper><ClassifierPage /></PageWrapper>} />
-        <Route path="/tentang-model" element={<PageWrapper><AboutModelPage /></PageWrapper>} />
-        <Route path="/panduan-istilah" element={<PageWrapper><GlossaryPage /></PageWrapper>} />
-        <Route path="/riwayat-pertumbuhan" element={<PageWrapper><GrowthHistoryPage /></PageWrapper>} />
-        
-        {/* RUTE BARU SEJAJAR DENGAN MENU NAVBAR */}
-        <Route path="/jadwal-imunisasi" element={<PageWrapper><ImmunizationSchedulePage /></PageWrapper>} />
-        <Route path="/kalkulator-tinggi-genetik" element={<PageWrapper><HeightPredictorPage /></PageWrapper>} />
+        <Route path="/masuk" element={<PageWrapper><LoginPage /></PageWrapper>} />
+        <Route path="/daftar" element={<PageWrapper><SignupPage /></PageWrapper>} />
+
+        <Route path="/tentang-model" element={
+          <ProtectedRoute><PageWrapper><AboutModelPage /></PageWrapper></ProtectedRoute>
+        } />
+        <Route path="/panduan-istilah" element={
+          <ProtectedRoute><PageWrapper><GlossaryPage /></PageWrapper></ProtectedRoute>
+        } />
+        <Route path="/riwayat-pertumbuhan" element={
+          <ProtectedRoute><PageWrapper><GrowthHistoryPage /></PageWrapper></ProtectedRoute>
+        } />
       </Routes>
     </AnimatePresence>
   )
@@ -46,10 +51,12 @@ function AnimatedRoutes() {
 function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-[#FAFAFA]">
-        <Navbar />
-        <AnimatedRoutes />
-      </div>
+      <AuthProvider>
+        <div className="min-h-screen">
+          <Navbar />
+          <AnimatedRoutes />
+        </div>
+      </AuthProvider>
     </BrowserRouter>
   )
 }
