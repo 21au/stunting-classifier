@@ -1,18 +1,23 @@
-import AppHeader from './components/AppHeader'
-import GrowthCurveHero from './components/GrowthCurveHero'
-import ModelStats from './components/ModelStats'
-import PredictionForm from './components/PredictionForm'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import LandingPage from './pages/LandingPage'
+import ClassifierPage from './pages/ClassifierPage'
+import AboutModelPage from './pages/AboutModelPage'
+import GlossaryPage from './pages/GlossaryPage'
 
 function App() {
   return (
-    <div className="min-h-screen">
-      <AppHeader />
-      <GrowthCurveHero />
-      <div className="max-w-5xl mx-auto px-4 py-10">
-        <ModelStats />
-        <PredictionForm />
+    <BrowserRouter>
+      <div className="min-h-screen">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/cek" element={<ClassifierPage />} />
+          <Route path="/tentang-model" element={<AboutModelPage />} />
+          <Route path="/panduan-istilah" element={<GlossaryPage />} />
+        </Routes>
       </div>
-    </div>
+    </BrowserRouter>
   )
 }
 

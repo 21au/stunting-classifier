@@ -14,8 +14,8 @@ function generatePercentileCurves() {
   return data
 }
 
-export default function GrowthChart({ childAge, childHeight, prediction }) {
-  const data = generatePercentileCurves()
+export default function GrowthChart({ childAge, childHeight }) {  
+const data = generatePercentileCurves()
 
   return (
     <motion.div
