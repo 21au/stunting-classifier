@@ -8,6 +8,7 @@ import {
   History, 
   BookOpen, 
   BrainCircuit, 
+  CalendarDays, 
   Sparkles 
 } from 'lucide-react'
 
@@ -15,7 +16,7 @@ export default function Navbar() {
   const [openDropdown, setOpenDropdown] = useState(null); // 'gizi' atau 'edukasi' atau null
   const location = useLocation();
 
-  // Deteksi kecocokan halaman aktif untuk masing-masing grup dropdown
+  // Deteksi halaman aktif untuk masing-masing grup dropdown
   const isGiziActive = location.pathname === '/cek' || location.pathname === '/riwayat-pertumbuhan';
   const isEdukasiActive = location.pathname === '/tentang-model' || location.pathname === '/panduan-istilah';
 
@@ -81,7 +82,7 @@ export default function Navbar() {
                   : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
               }`}
             >
-              <span>Pantau Gizi Anak</span>
+              <span>Pantau Gizi</span>
               <motion.div
                 animate={{ rotate: openDropdown === 'gizi' ? 180 : 0 }}
                 transition={{ duration: 0.2 }}
@@ -137,7 +138,55 @@ export default function Navbar() {
             </AnimatePresence>
           </div>
 
-          {/* 3. DROPDOWN GROUP: EDUKASI & METODE (MENGGABUNGKAN MODEL & ISTILAH) */}
+          {/* 3. MENU MANDIRI ⭐ Fitur 2: JADWAL IMUNISASI */}
+          <NavLink
+            to="/jadwal-imunisasi"
+            className={({ isActive }) =>
+              `relative px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 flex items-center gap-1.5 ${
+                isActive ? 'text-teal-800' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+              }`
+            }
+          >
+            {({ isActive }) => (
+              <>
+                {isActive && (
+                  <motion.div
+                    layoutId="navbar-active-pill"
+                    className="absolute inset-0 bg-teal-50 rounded-xl border border-teal-100/70 -z-10"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <CalendarDays size={16} className={isActive ? "text-teal-700" : "text-slate-400"} />
+                Jadwal Imunisasi
+              </>
+            )}
+          </NavLink>
+
+          {/* 4. MENU MANDIRI ⭐ Fitur 4: PREDIKSI TINGGI */}
+          <NavLink
+            to="/kalkulator-tinggi-genetik"
+            className={({ isActive }) =>
+              `relative px-4 py-2 rounded-xl text-sm font-bold transition-all duration-200 flex items-center gap-1.5 ${
+                isActive ? 'text-teal-800' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+              }`
+            }
+          >
+            {({ isActive }) => (
+              <>
+                {isActive && (
+                  <motion.div
+                    layoutId="navbar-active-pill"
+                    className="absolute inset-0 bg-teal-50 rounded-xl border border-teal-100/70 -z-10"
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <Sparkles size={16} className={isActive ? "text-amber-600" : "text-slate-400"} />
+                Prediksi Tinggi
+              </>
+            )}
+          </NavLink>
+
+          {/* 5. DROPDOWN GROUP: PUSAT EDUKASI (MODEL & ISTILAH) */}
           <div 
             className="relative"
             onMouseEnter={() => setOpenDropdown('edukasi')}
@@ -151,7 +200,7 @@ export default function Navbar() {
                   : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
               }`}
             >
-              <span>Edukasi & Metode</span>
+              <span>Edukasi AI</span>
               <motion.div
                 animate={{ rotate: openDropdown === 'edukasi' ? 180 : 0 }}
                 transition={{ duration: 0.2 }}

@@ -7,6 +7,10 @@ import AboutModelPage from './pages/AboutModelPage'
 import GlossaryPage from './pages/GlossaryPage'
 import GrowthHistoryPage from './pages/GrowthHistoryPage'
 
+// IMPORT DUA HALAMAN BARU DI SINI (Pastikan nanti Bunda buat filenya di folder pages ya!)
+import ImmunizationSchedulePage from './pages/ImmunizationSchedulePage'
+import HeightPredictorPage from './pages/HeightPredictorPage'
+
 function PageWrapper({ children }) {
   return (
     <motion.div
@@ -30,6 +34,10 @@ function AnimatedRoutes() {
         <Route path="/tentang-model" element={<PageWrapper><AboutModelPage /></PageWrapper>} />
         <Route path="/panduan-istilah" element={<PageWrapper><GlossaryPage /></PageWrapper>} />
         <Route path="/riwayat-pertumbuhan" element={<PageWrapper><GrowthHistoryPage /></PageWrapper>} />
+        
+        {/* RUTE BARU SEJAJAR DENGAN MENU NAVBAR */}
+        <Route path="/jadwal-imunisasi" element={<PageWrapper><ImmunizationSchedulePage /></PageWrapper>} />
+        <Route path="/kalkulator-tinggi-genetik" element={<PageWrapper><HeightPredictorPage /></PageWrapper>} />
       </Routes>
     </AnimatePresence>
   )
@@ -38,7 +46,7 @@ function AnimatedRoutes() {
 function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-[#FAFAFA]">
         <Navbar />
         <AnimatedRoutes />
       </div>
