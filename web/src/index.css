@@ -17,11 +17,19 @@
 @layer base {
   body {
     @apply bg-cream text-ink font-body;
+    background-image:
+      radial-gradient(circle at 10% 5%, rgba(15, 118, 110, 0.06), transparent 40%),
+      radial-gradient(circle at 90% 95%, rgba(249, 115, 98, 0.06), transparent 40%);
+    background-attachment: fixed;
+    scroll-behavior: smooth;
   }
 
-  ::selection {
-    background-color: rgba(15, 118, 110, 0.2);
-  }
+  ::selection { background-color: rgba(15, 118, 110, 0.2); }
+
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #C9D4C6; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #0F766E; }
 
   *:focus-visible {
     outline: 2px solid #0F766E;
@@ -29,12 +37,43 @@
   }
 }
 
+@layer components {
+  .card {
+    @apply bg-white border border-sage rounded-2xl transition-all duration-300;
+  }
+  .card-hover {
+    @apply hover:shadow-lg hover:shadow-teal/5 hover:-translate-y-0.5;
+  }
+}
+
 @keyframes draw-curve {
   from { stroke-dashoffset: 1000; }
   to { stroke-dashoffset: 0; }
 }
-
 .growth-curve-path {
   stroke-dasharray: 1000;
   animation: draw-curve 2s ease-out forwards;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+.float-animation { animation: float 4s ease-in-out infinite; }
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.pulse-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 2px solid currentColor;
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+@media print {
+  nav { display: none; }
 }
