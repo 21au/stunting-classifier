@@ -7,17 +7,17 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // 1. Cek apakah ada user yang sedang login di komputer ini
+    // 1. Ambil sesi login yang tersimpan di memori browser
     const savedUser = localStorage.getItem('user_session')
     if (savedUser) {
       setUser(JSON.parse(savedUser))
     }
     
-    // 2. Bikin akun tiruan default di komputer ini kalau belum ada datanya
+    // 2. Bikin database lokal di browser (Sama persis dengan data Neon Bunda)
     const existingUsers = localStorage.getItem('mock_users')
     if (!existingUsers) {
       const defaultUsers = [
-        { identifier: 'bunda@email.com', password: 'rahasia123' },
+        { identifier: 'audrey@gmail.com', password: 'audrey123' }, // Sesuai image_57aec1.png
         { identifier: '08123456789', password: 'rahasia123' }
       ]
       localStorage.setItem('mock_users', JSON.stringify(defaultUsers))
@@ -26,14 +26,14 @@ export function AuthProvider({ children }) {
     setLoading(false)
   }, [])
 
-  // Fungsi Masuk (Login) - INSTAN & MANDIRI
+  // Fungsi Masuk (Login)
   async function signIn(identifier, password) {
-    // Beri efek loading palsu sebentar (0.5 detik) biar estetik
-    await new Promise(resolve => setTimeout(resolve, 500))
+    // Efek loading animasi 0.6 detik biar estetik profesional
+    await new Promise(resolve => setTimeout(resolve, 600))
 
     const localUsers = JSON.parse(localStorage.getItem('mock_users') || '[]')
     
-    // Cari apakah email/no hp dan password-nya cocok
+    // Cari akun yang cocok
     const foundUser = localUsers.find(
       u => u.identifier === identifier && u.password === password
     )
@@ -42,29 +42,26 @@ export function AuthProvider({ children }) {
       return { error: { message: 'Email/No. HP atau password salah, Bunda.' } }
     }
 
-    // Jika cocok, simpan sesi
+    // Jika sukses, simpan ke session browser
     const sessionUser = { identifier: foundUser.identifier }
     localStorage.setItem('user_session', JSON.stringify(sessionUser))
     setUser(sessionUser)
     return { error: null }
   }
 
-  // Fungsi Daftar (Register) - LANGSUNG MASUK KE STORAGE KOMPUTER
+  // Fungsi Daftar (Register)
   async function signUp(identifier, password) {
-    await new Promise(resolve => setTimeout(resolve, 500))
-
+    await new Promise(resolve => setTimeout(resolve, 600))
     const localUsers = JSON.parse(localStorage.getItem('mock_users') || '[]')
     
-    // Cek apakah sudah terdaftar
     const isExist = localUsers.some(u => u.identifier === identifier)
     if (isExist) {
       return { error: { message: 'Email atau Nomor HP ini sudah terdaftar, Bunda.' } }
     }
 
-    // Daftarkan user baru ke list lokal
+    // Masukkan ke database lokal browser
     localUsers.push({ identifier, password })
     localStorage.setItem('mock_users', JSON.stringify(localUsers))
-
     return { error: null }
   }
 
@@ -76,7 +73,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut }}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   )
 }
